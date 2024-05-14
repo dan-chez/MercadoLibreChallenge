@@ -21,3 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "MercadoLibreChallenge"
 include ':app'
+include ':data'

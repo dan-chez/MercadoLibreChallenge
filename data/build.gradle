@@ -1,0 +1,50 @@
+plugins {
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.jetbrains.kotlin.android)
+    id 'kotlin-kapt'
+    alias(libs.plugins.hilt)
+}
+
+android {
+    namespace 'com.danchez.mercadolibrechallenge.data'
+    compileSdk 34
+
+    defaultConfig {
+        minSdk 26
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+
+    // Retrofit
+    implementation libs.retrofit
+    implementation libs.converter.gson
+    implementation libs.gson
+
+    implementation libs.timber
+
+    // Dagger
+    implementation libs.dagger.hilt
+    kapt libs.dagger.hilt.compiler
+
+    implementation libs.androidx.core.ktx
+    testImplementation libs.junit
+    androidTestImplementation libs.androidx.junit
+}

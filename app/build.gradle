@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id 'kotlin-kapt'
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -19,6 +21,14 @@ android {
 
     buildTypes {
         release {
+            debuggable false
+            shrinkResources true
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            debuggable true
+            shrinkResources false
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -30,15 +40,44 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    buildFeatures {
+        compose true
+        viewBinding true
+        buildConfig = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.5.1'
+    }
 }
 
 dependencies {
+    // MercadoLibre modules
+    implementation project(path: ':data')
 
     implementation libs.androidx.core.ktx
     implementation libs.androidx.appcompat
     implementation libs.material
-    implementation libs.androidx.activity
     implementation libs.androidx.constraintlayout
+    implementation libs.lifecycle.viewmodel
+    implementation libs.timber
+
+    // Dagger
+    implementation libs.dagger.hilt
+    kapt libs.dagger.hilt.compiler
+
+    implementation libs.androidx.navigation.fragment.ktx
+    implementation libs.androidx.navigation.ui.ktx
+
+    implementation platform(libs.androidx.compose.bom)
+    implementation libs.androidx.material3
+    implementation libs.androidx.ui.tooling.preview
+    implementation libs.androidx.ui.tooling
+    implementation libs.io.coil.compose
+    implementation libs.androidx.hilt.navigation.compose
+
+    testImplementation libs.io.mockk
+    testImplementation libs.kotlinx.coroutines.test
     testImplementation libs.junit
     androidTestImplementation libs.androidx.junit
     androidTestImplementation libs.androidx.espresso.core
