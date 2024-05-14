@@ -1,4 +1,4 @@
-package com.danchez.mercadolibrechallenge.di.modules
+package com.danchez.mercadolibrechallenge.di
 
 import com.danchez.mercadolibrechallenge.domain.repository.ProductRepository
 import com.danchez.mercadolibrechallenge.domain.repository.ProductRepositoryImpl

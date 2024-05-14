@@ -1,4 +1,4 @@
-package com.danchez.mercadolibrechallenge.di.modules
+package com.danchez.mercadolibrechallenge.di
 
 import com.danchez.mercadolibrechallenge.data.model.ProductResponse
 import com.danchez.mercadolibrechallenge.domain.mapper.ModelMapper

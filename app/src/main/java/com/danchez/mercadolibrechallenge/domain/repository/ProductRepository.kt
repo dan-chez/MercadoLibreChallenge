@@ -19,7 +19,6 @@ class ProductRepositoryImpl @Inject constructor(
 ) : ProductRepository {
     override suspend fun searchProduct(query: String): Result<Products> = kotlin.runCatching {
         withContext(Dispatchers.IO) {
-            // TODO Check if there is something in local
             val response = remoteSource.searchProduct(query = query).getOrThrow()
             mapper.map(response)
         }

@@ -3,6 +3,8 @@ package com.danchez.mercadolibrechallenge.domain.mapper
 import com.danchez.mercadolibrechallenge.data.model.ProductResponse
 import com.danchez.mercadolibrechallenge.domain.model.Products
 import com.danchez.mercadolibrechallenge.domain.model.Products.Product
+import com.danchez.mercadolibrechallenge.utils.toDiscountFormat
+import com.danchez.mercadolibrechallenge.utils.toMoneyFormat
 import javax.inject.Inject
 
 class ProductResponseToProductsMapper @Inject constructor() : ModelMapper<ProductResponse, Products> {
@@ -10,12 +12,16 @@ class ProductResponseToProductsMapper @Inject constructor() : ModelMapper<Produc
         val results = checkNotNull(input.results)
         val products = results.mapNotNull {
             it?.let { product ->
+                val originalPrice = product.originalPrice?.toInt()
+                val price = product.price?.toInt()
+                val discount = if (originalPrice != null && price != null) {
+                    calculateDiscount(originalPrice, price).toDiscountFormat()
+                } else null
                 Product(
-                    id = product.id,
-                    acceptsMercadoPago = product.acceptsMercadoPago ?: false,
                     pictureUrl = product.thumbnail ?: "",
-                    originalPrice = product.originalPrice?.toInt(),
-                    price = product.price?.toInt() ?: 0,
+                    originalPrice = originalPrice?.toMoneyFormat(),
+                    price = price?.toMoneyFormat() ?: "",
+                    discount = discount,
                     title = product.title ?: "",
                 )
             }
@@ -23,5 +29,12 @@ class ProductResponseToProductsMapper @Inject constructor() : ModelMapper<Produc
         return Products(
             products = products,
         )
+    }
+
+    private fun calculateDiscount(originalPrice: Int, priceWithDiscount: Int): Int {
+        val discountAmount = originalPrice - priceWithDiscount
+        val discountPercentage = (discountAmount.toDouble() / originalPrice.toDouble()) * 100
+
+        return discountPercentage.toInt()
     }
 }
