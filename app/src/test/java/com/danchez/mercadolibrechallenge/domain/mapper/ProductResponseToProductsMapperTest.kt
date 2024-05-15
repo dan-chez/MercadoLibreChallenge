@@ -21,12 +21,13 @@ class ProductResponseToProductsMapperTest {
 
     @Test
     fun `map input to products`() {
-        val product1 = ProductResponse.Product(title = "Product 1", price = 10000, originalPrice = 20000, thumbnail = "thumbnail1")
-        val product2 = ProductResponse.Product(title = "Product 2", price = 15000, originalPrice = 25000, thumbnail = "thumbnail2")
+        val product1 = ProductResponse.Product(id = "", title = "Product 1", price = 10000, originalPrice = 20000, thumbnail = "thumbnail1")
+        val product2 = ProductResponse.Product(id = "", title = "Product 2", price = 15000, originalPrice = 25000, thumbnail = "thumbnail2")
         val productResponse = ProductResponse(results = listOf(product1, product2))
 
         val expectedProducts = listOf(
             Products.Product(
+                id = "",
                 pictureUrl = "thumbnail1",
                 originalPrice = "20000",
                 price = "10000",
@@ -34,6 +35,7 @@ class ProductResponseToProductsMapperTest {
                 title = "Product 1"
             ),
             Products.Product(
+                id = "",
                 pictureUrl = "thumbnail2",
                 originalPrice = "250000",
                 price = "150000",

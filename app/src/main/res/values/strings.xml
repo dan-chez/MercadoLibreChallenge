@@ -9,4 +9,9 @@
     <string name="confirm">Confirmar</string>
     <string name="simple_error_dialog_label">Ha ocurrido un error. Por favor intenta nuevamente.</string>
     <string name="simple_error_dialog_title">"Error</string>
+
+    <string name="free_shipping">Llega gratis mañana</string>
+    <string name="condition_new">Nuevo</string>
+    <string name="condition_used">Usado</string>
+    <string name="description">Descripción</string>
 </resources>
