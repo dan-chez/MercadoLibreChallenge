@@ -10,6 +10,7 @@ class ProductItemProvider : PreviewParameterProvider<Products.Product> {
     )
 
     private fun getProduct() = Products.Product(
+        id = "",
         title = "Bolso Morral Portail Hardley Puerto Usb Anti Robo 20l Color Negro",
         price = "$ 129.990",
         pictureUrl = "",

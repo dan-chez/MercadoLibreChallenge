@@ -20,6 +20,7 @@ import com.danchez.mercadolibrechallenge.presentation.search_product.SearchProdu
 @Composable
 fun ProductsListComposable(
     modifier: Modifier = Modifier,
+    onItemPressed: (String) -> Unit,
     viewModel: SearchProductViewModel = hiltViewModel(),
 ) {
 
@@ -39,7 +40,11 @@ fun ProductsListComposable(
         }
 
         is SearchProductUIState.Success -> {
-            LoadItemsList(modifier = modifier, (uiState as SearchProductUIState.Success).products.products)
+            LoadItemsList(
+                modifier = modifier,
+                (uiState as SearchProductUIState.Success).products.products,
+                onItemPressed = onItemPressed,
+            )
         }
 
         else -> {}
@@ -47,14 +52,18 @@ fun ProductsListComposable(
 }
 
 @Composable
-private fun LoadItemsList(modifier: Modifier, products: List<Product>) {
+private fun LoadItemsList(
+    modifier: Modifier,
+    products: List<Product>,
+    onItemPressed: (String) -> Unit,
+) {
     Box(modifier = modifier) {
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             items(products) { product ->
                 ProductItemComposable(
                     product = product,
                     onItemClick = {
-                        // TODO Implement action
+                        onItemPressed(it.id)
                     }
                 )
                 Divider(color = Color.Black)

@@ -4,6 +4,7 @@ data class Products(
     val products: List<Product>,
 ) {
     data class Product(
+        val id: String,
         val pictureUrl: String,
         val originalPrice: String?,
         val price: String,
